@@ -16,7 +16,11 @@ else
     exit 1
 fi
 
-PATH=$PATH:$(pwd)/toolchain
+if ! [[ $PATH == *"/toolchain"* ]]; then 
+    PATH=$PATH:$(pwd)/toolchain
+else
+    echo Rebuild.
+fi
 
 echo Building..
 

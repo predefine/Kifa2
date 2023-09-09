@@ -16,6 +16,8 @@ else
     exit 1
 fi
 
+PATH=$PATH:$(pwd)/toolchain
+
 echo Building..
 
 cd boot && chmod +x make.sh && ./make.sh && cd ..

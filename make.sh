@@ -13,7 +13,7 @@ else
     mkdir $GNUToolchainFolder
     tar -xf toolchain.tar.xz -C ./toolchain
     mv -v ./toolchain/arm-gnu-toolchain-*/* ./toolchain/
-    #rm -rf toolchain.tar.xz
+    rm -rf toolchain.tar.xz
     echo Restart script please.
     exit 1
 fi

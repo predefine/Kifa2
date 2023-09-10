@@ -1,6 +1,6 @@
 toolchain/
 toolchain.tar.xz
 
-*.o # ignore all objects
-*.bin # ignore all binaries (boot)
-*.elf # ignore all elf binaries 
+*.o
+*.bin
+*.elf

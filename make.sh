@@ -1,4 +1,4 @@
-GNULatestToolchain="https://developer.arm.com/-/media/Files/downloads/gnu/12.3.rel1/binrel/arm-gnu-toolchain-12.3.rel1-mingw-w64-i686-aarch64-none-elf.zip"
+GNULatestToolchain="https://developer.arm.com/-/media/Files/downloads/gnu/12.3.rel1/binrel/arm-gnu-toolchain-12.3.rel1-x86_64-aarch64-none-elf.tar.xz"
 GNUToolchainFolder="./toolchain"
 echo Checking to GNU Toolchain...
 
@@ -8,16 +8,17 @@ then
 else
     echo Not found
     echo Downloading ARM Toolchain
-    curl -o toolchain.zip -L $GNULatestToolchain
+    curl -o toolchain.tar.xz -L $GNULatestToolchain
     mkdir $GNUToolchainFolder
-    unzip ./toolchain.zip "arm-gnu-toolchain-*/*" -d "$GNUToolchainFolder"
-    rm -rf toolchain.zip
+    tar -xf toolchain.tar.xz -C ./toolchain
+    mv -v ./toolchain/arm-gnu-toolchain-*/* ./toolchain/
+    #rm -rf toolchain.tar.xz
     echo Restart script please.
     exit 1
 fi
 
-if ! [[ $PATH == *"/toolchain"* ]]; then 
-    PATH=$PATH:$(pwd)/toolchain
+if ! [[ $PATH == *"/toolchain/"* ]]; then 
+    PATH=$PATH:$(pwd)/toolchain/bin
 else
     echo Rebuild.
 fi

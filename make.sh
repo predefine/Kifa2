@@ -1,5 +1,6 @@
 GNULatestToolchain="https://developer.arm.com/-/media/Files/downloads/gnu/12.3.rel1/binrel/arm-gnu-toolchain-12.3.rel1-x86_64-aarch64-none-elf.tar.xz"
 GNUToolchainFolder="./toolchain"
+export GNUToolchainBinaries="$(pwd)/toolchain/bin"
 echo Checking to GNU Toolchain...
 
 if [ -d $GNUToolchainFolder ]
@@ -17,15 +18,9 @@ else
     exit 1
 fi
 
-if ! [[ $PATH == *"/toolchain/"* ]]; then 
-    PATH=$PATH:$(pwd)/toolchain/bin
-else
-    echo Rebuild.
-fi
-
 echo Building..
 
-cd boot && chmod +x make.sh && ./make.sh && cd ..
+cd bootrom && chmod +x make.sh && ./make.sh && cd ..
 cd krnl && chmod +x make.sh && ./make.sh && cd ..
 cd sm && chmod +x make.sh && ./make.sh && cd ..
 cd trusted_krnl && chmod +x make.sh && ./make.sh && cd ..

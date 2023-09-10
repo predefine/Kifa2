@@ -11,8 +11,8 @@ SECTIONS {
     .text : { *(.text) } > FLASH
     .data : { *(.data) } > RAM
     .bss : { *(.bss COMMON) } > RAM
-    .stack: {
-        . += 0x1000
+    .stack : {
+        . += 0x1000;
         . = ALIGN(8);
         stack_top = .;
     } > RAM

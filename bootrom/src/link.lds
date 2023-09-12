@@ -16,4 +16,11 @@ SECTIONS {
         . = ALIGN(8);
         stack_top = .;
     } > RAM
+
+    /DISCARD/ :
+	{
+		*(.comment)
+		*(.eh_frame)
+		*(.note.gnu.build-id)
+	} # from ToaruOS
 }

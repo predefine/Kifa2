@@ -1,3 +1,4 @@
+#!/usr/bin/sh
 echo Testing a build
 
 echo Building a NAND

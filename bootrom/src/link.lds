@@ -9,6 +9,7 @@ MEMORY
 SECTIONS {
     .startup . : { boot.o(.text) } > FLASH
     .text : { *(.text) } > FLASH
+    .rodata : { *(.rodata) } > FLASH
     .data : { *(.data) } > RAM
     .bss : { *(.bss COMMON) } > RAM
     .stack : {

@@ -7,4 +7,4 @@ echo OK # nothing
 
 echo Run!
 
-qemu-system-aarch64 -machine virt -cpu cortex-a57 -bios bootrom/out/boot.bin -serial stdio
+qemu-system-aarch64 -machine virt,secure=on -cpu cortex-a76 -bios bootrom/out/boot.bin -serial stdio

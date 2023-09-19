@@ -5,8 +5,8 @@
 
 #define HW_REGISTER_RW(addr) (*(volatile uint32_t *)(addr))
 
-#ifndef MODE_DEV || MODE_PROD || MODE_TEST
-#warning "Mode not set. Using DEV"
+#if !defined(MODE_DEV) || !defined(MODE_PROD) || !defined(MODE_TEST)
+#pragma message "Mode not set. Using DEV"
 #define MODE_DEV 1
 #endif
 
@@ -15,7 +15,7 @@
 #endif
 
 #ifdef MODE_PROD
-#error but currently prod isnt available
+#error because currently prod isnt available
 #endif
 
 #endif

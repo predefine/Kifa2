@@ -10,7 +10,7 @@ $as ../src/boot.s -o boot.o
 
 for f in ../src/*.c ; do 
     echo $f
-    $gcc -ffreestanding -I ../incl -c $f -o "${f%.c}.o" 
+    $gcc -ffreestanding -Wall -Wextra -Wpedantic -Werror -I ../incl -c $f -o "${f%.c}.o" 
 done
 
 mv ../src/*.o . 

@@ -3,5 +3,6 @@
 
 void bmain() {
     // ничо я тебе не обязан и ничо давать не буду
-    puts("Hello world!");
+    puts("Hello world!\r\n");
+    for(;;) putc(getc());
 }

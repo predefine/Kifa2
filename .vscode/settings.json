@@ -1,0 +1,8 @@
+{
+    "C_Cpp.errorSquiggles": "disabled",
+    "files.associations": {
+        "GitHub Copilot": "javascript",
+        "*.jinja2": "html",
+        "stdint.h": "c"
+    }
+}

@@ -12,36 +12,6 @@ enum device_status {
     DEVICE_NEEDS_RESET = 64
 };
 
-enum BlkFeature {
-    BARRIER = (1ULL << 0),             // Device supports request barriers. (legacy)
-    SIZE_MAX = (1ULL << 1),            // Maximum size of any single segment is in `size_max`.
-    SEG_MAX = (1ULL << 2),             // Maximum number of segments in a request is in `seg_max`.
-    GEOMETRY = (1ULL << 4),            // Disk-style geometry specified in geometry.
-    RO = (1ULL << 5),                  // Device is read-only.
-    BLK_SIZE = (1ULL << 6),            // Block size of the disk is in `blk_size`.
-    SCSI = (1ULL << 7),                // Device supports SCSI packet commands. (legacy)
-    FLUSH = (1ULL << 9),               // Cache flush command support.
-    TOPOLOGY = (1ULL << 10),           // Device exports information on optimal I/O alignment.
-    CONFIG_WCE = (1ULL << 11),         // Device can toggle its cache between writeback and writethrough modes.
-    MQ = (1ULL << 12),                 // Device supports multiqueue.
-    DISCARD = (1ULL << 13),            // Device can support the discard command.
-    WRITE_ZEROES = (1ULL << 14),       // Device can support the write zeroes command.
-    LIFETIME = (1ULL << 15),           // Device supports providing storage lifetime information.
-    SECURE_ERASE = (1ULL << 16),       // Device can support the secure erase command.
-    NOTIFY_ON_EMPTY = (1ULL << 24),    // Device independent (legacy).
-    ANY_LAYOUT = (1ULL << 27),         // Device independent (legacy).
-    RING_INDIRECT_DESC = (1ULL << 28), // Device independent.
-    RING_EVENT_IDX = (1ULL << 29),     // Device independent.
-    UNUSED = (1ULL << 30),             // Device independent (legacy).
-    VERSION_1 = (1ULL << 32),          // Device independent (detect legacy).
-    ACCESS_PLATFORM = (1ULL << 33),    // Since virtio v1.1.
-    RING_PACKED = (1ULL << 34),        // Since virtio v1.1.
-    IN_ORDER = (1ULL << 35),           // Since virtio v1.1.
-    ORDER_PLATFORM = (1ULL << 36),     // Since virtio v1.1.
-    SR_IOV = (1ULL << 37),             // Since virtio v1.1.
-    NOTIFICATION_DATA = (1ULL << 38)   // Since virtio v1.1.
-};
-
 struct virtio_device
 {
     const uint32_t magic;
@@ -56,7 +26,7 @@ struct virtio_device_legacy
     const uint32_t deviceid;
     const uint32_t vendorid;
     const uint32_t hostfeatures;
-    const uint32_t hostfeaturessel;
+    uint32_t hostfeaturessel;
     const uint32_t ___res1[2];
     uint32_t guestfeatures;
     uint32_t guestfeaturessel;
@@ -73,7 +43,7 @@ struct virtio_device_legacy
     const uint32_t interruptstatus;
     uint32_t interruptack;
     const uint32_t ___res5[2];
-    uint32_t status;
+    volatile uint32_t status;
     struct virtio_blk_config {
         int64_t capacity;               // le64 capacity
         int32_t size_max;              // le32 size_max
@@ -115,5 +85,6 @@ struct virtio_device_legacy
 
 struct virtio_device* scan_mmio_virtio_device(void *addr);
 struct virtio_device_legacy* scan_mmio_legacy_virtio_device(void *addr);
+uint32_t legacy_virtio_begin_init(struct virtio_device_legacy* device);
 
 #endif

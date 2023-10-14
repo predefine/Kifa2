@@ -11,7 +11,12 @@ void bmain() {
     set_vbar_el3(&__ivt);
     puts("Current EL: ");
     puthex(get_current_el());
-    puthex(scan_mmio_legacy_virtio_device((void*)0xa003e00)->config.capacity);
+    struct virtio_device_legacy* blk;
+    
+    blk = scan_mmio_legacy_virtio_device((void*)0xa003e00);
+
+    legacy_virtio_begin_init(blk);
+    puts("Init seems to be ok\n");
     for(;;) putc(getc());
 }
 

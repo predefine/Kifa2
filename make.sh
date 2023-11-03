@@ -22,6 +22,7 @@ fi
 echo Building..
 
 cd bootrom && chmod +x make.sh && ./make.sh && cd ..
+cd boot && chmod +x make.sh && ./make.sh && cd ..
 cd krnl && chmod +x make.sh && ./make.sh && cd ..
 cd sm && chmod +x make.sh && ./make.sh && cd ..
 #cd trusted_krnl && chmod +x make.sh && ./make.sh && cd ..

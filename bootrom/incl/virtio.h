@@ -45,7 +45,7 @@ struct virtio_device_legacy
     const uint32_t ___res5[2];
     volatile uint32_t status;
     struct virtio_blk_config {
-        int64_t capacity;               // le64 capacity
+        uint64_t capacity;               // le64 capacity
         int32_t size_max;              // le32 size_max
         int32_t seg_max;               // le32 seg_max
         

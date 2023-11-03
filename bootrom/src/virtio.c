@@ -30,12 +30,33 @@ uint32_t legacy_virtio_begin_init(struct virtio_device_legacy* device) {
     if(device->magic != 0x74726976) {
         panic("Invalid VirtIO device passed!");
     }
+    
+    if(device->deviceid != 2) {
+        panic("Not a block device!");
+    }
 
-    legacy_virtio_set_status(device, 0); // Empty!
-    legacy_virtio_set_status(device, INIT_STATUS); // Ack+Device
+    if(device->version != 1) {
+        panic("not a old layout!");
+    }  
 
-    device->guestfeatures = (read_device_features(device) & 0xffffffff) & (1 << 5 | 1 << 9);
+    // Reset
+    legacy_virtio_set_status(device, 0);
 
-    puthexl(device->config.capacity);
+    while (device->status != 0);
+
+    // Set acknowledge bit
+    legacy_virtio_set_status(device, device->status | ACKNOWLEDGE);
+
+    puthex(device->status);
+
+    // Set driver bit
+    legacy_virtio_set_status(device, device->status | DRIVER);
+
+    puthex(device->status);
+
+    if(device->status & DEVICE_NEEDS_RESET || device->status != (ACKNOWLEDGE | DRIVER)) {
+        panic("Something went wrong with init");
+    }
+
     return 0;
 }

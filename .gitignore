@@ -4,5 +4,3 @@ toolchain.tar.xz
 *.o
 *.bin
 *.elf
-
-.jinx-cache
